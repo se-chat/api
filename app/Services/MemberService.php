@@ -73,4 +73,8 @@ class MemberService
         $members = Member::query()->whereIn('id', $ids)->get();
         return $members->toArray();
     }
+    // 传入 id
+    // 将 id 转为 十六进制字符
+    // 字符串转为二进制
+    // 在将二进制
 }

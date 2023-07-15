@@ -12,16 +12,9 @@ class MessageService
     {
         return Message::query()
             ->where('id', '>', $lastId)
-            ->where(function ($query) use ($memberId, $receiverId) {
-                $query->where('receiver_type', Member::class)
-                    ->orWhere(function ($query) use ($memberId, $receiverId) {
-                        $query->where('sender_id', $receiverId)
-                            ->where('receiver_id', $memberId);
-                    })->orWhere(function ($query) use ($memberId, $receiverId) {
-                        $query->where('sender_id', $memberId)
-                            ->where('receiver_id', $receiverId);
-                    });
-            })
+            ->where('receiver_type', Member::class)
+            ->whereIn('sender_id', [$memberId, $receiverId])
+            ->whereIn('receiver_id', [$memberId, $receiverId])
             ->orderBy('id')
             ->offset(0)
             ->limit(5)
@@ -69,6 +62,7 @@ class MessageService
         $message->save();
         return $message->toArray();
     }
+
     public static function deleteBySenderIdAndReceiverTypeGroup(int $senderId, int $groupId): bool
     {
         return Message::query()

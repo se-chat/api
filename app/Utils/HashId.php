@@ -22,7 +22,7 @@ class HashId
 
     public static function getAlphabet(): string
     {
-        $base = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
         return str_shuffle($base);
     }
 }
