@@ -14,12 +14,11 @@ use App\Services\MessageService;
 use App\Utils\HashId;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
-use Ramsey\Uuid\Uuid;
 
 class MessageController extends Controller
 {
     /**
+     * @return JsonResponse
      * @throws Exception
      */
     public function clearAll(): JsonResponse
@@ -30,6 +29,8 @@ class MessageController extends Controller
     }
 
     /**
+     * @param MessageGetListRequest $request
+     * @return JsonResponse
      * @throws Exception
      */
     public function getList(MessageGetListRequest $request): JsonResponse
@@ -59,7 +60,6 @@ class MessageController extends Controller
             unset($member['created_at'], $member['updated_at'], $member['pub_key'], $member['no']);
         }
         $members = collect($members)->keyBy('id');
-        // 将 messages 按照 id 降序排 需使用 php 原生
         usort($messages, function ($a, $b) {
             return $a['id'] - $b['id'];
         });
@@ -108,27 +108,6 @@ class MessageController extends Controller
                 break;
             default:
                 throw new Exception('不支持的联系人类型');
-        }
-        if ($params['type'] === 'image') {
-            if ($request->hasFile('file') === false) {
-                throw new Exception('文件格式错误');
-            }
-            $path = Storage::disk('public')->put('encrypt/' . date('Y/m/d'), $request->file('file'));
-            $params['content'] = json_encode([
-                'path' => $path,
-            ]);
-        }
-        if ($params['type'] === 'file') {
-            $file = json_decode($params['content'], true) ?? [];
-            if (empty($file['name']) || empty($file['size']) || $request->hasFile('file') === false) {
-                throw new Exception('文件格式错误');
-            }
-            $path = Storage::disk('public')->put('encrypt/' . date('Y/m/d'), $request->file('file'));
-            $params['content'] = json_encode([
-                'name' => $file['name'],
-                'size' => $file['size'],
-                'path' => $path,
-            ]);
         }
         MessageService::create($params);
         return $this->success();

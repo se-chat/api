@@ -22,12 +22,11 @@ class FileService
         $file->size = $data['size'];
         $file->hash = $data['hash'];
         $file->ext = $data['ext'];
-        $file->driver = $data['driver'];
         $file->save();
         return $file->toArray();
     }
 
-    public function get(int $id): array
+    public static function findById(int $id): array
     {
         $file = File::query()->find($id);
         if ($file) {

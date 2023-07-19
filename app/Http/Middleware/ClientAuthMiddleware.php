@@ -38,7 +38,9 @@ class ClientAuthMiddleware
         if ($request->getMethod() == "POST") {
             $sharedKey = CryptoService::getSharedSecret(config('app.system_wallet.pri_key'), $signInfo['pub_key']);
             $postData = json_decode(AESService::de($request->post('data'), $sharedKey), true) ?? [];
-            $request->replace($postData);
+            $inputs = $request->all();
+            unset($inputs['data'],$inputs['length']);
+            $request->replace(array_merge($inputs, $postData));
         }
         return $next($request);
     }

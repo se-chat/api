@@ -48,4 +48,8 @@ Route::middleware(['client.auth'])->group(function () {
         Route::post('accept', 'accept');
         Route::post('reject', 'reject');
     });
+    Route::prefix('file')->controller(\App\Http\Controllers\FileController::class)->group(function () {
+        Route::post('upload', 'upload');
+    });
 });
+Route::get('file/download/{id}', [\App\Http\Controllers\FileController::class, 'download']);

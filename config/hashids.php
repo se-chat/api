@@ -40,37 +40,42 @@ return [
         'main' => [
             'salt' => '',
             'length' => 0,
-            'alphabet' => env('HASH_ID_ALPHABET','abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+            'alphabet' => env('HASH_ID_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
         ],
         'member' => [
             'salt' => 'member',
             'length' => 4,
-            'alphabet' => env('HASH_ID_ALPHABET','abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+            'alphabet' => env('HASH_ID_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
         ],
         'group' => [
             'salt' => 'group',
             'length' => 4,
-            'alphabet' => env('HASH_ID_ALPHABET','abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+            'alphabet' => env('HASH_ID_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
         ],
         'invitation-notice' => [
             'salt' => 'invitation-notice',
             'length' => 4,
-            'alphabet' => env('HASH_ID_ALPHABET','abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+            'alphabet' => env('HASH_ID_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
         ],
-        'contact'=> [
+        'contact' => [
             'salt' => 'contact',
             'length' => 4,
-            'alphabet' => env('HASH_ID_ALPHABET','abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+            'alphabet' => env('HASH_ID_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
         ],
-        'message'=> [
+        'message' => [
             'salt' => 'message',
             'length' => 4,
-            'alphabet' => env('HASH_ID_ALPHABET','abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+            'alphabet' => env('HASH_ID_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+        ],
+        'file' => [
+            'salt' => 'file',
+            'length' => 4,
+            'alphabet' => env('HASH_ID_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
         ],
         'alternative' => [
             'salt' => 'your-salt-string',
             'length' => 'your-length-integer',
-            'alphabet' => env('HASH_ID_ALPHABET','abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+            'alphabet' => env('HASH_ID_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
         ],
 
     ],

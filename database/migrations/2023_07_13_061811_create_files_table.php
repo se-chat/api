@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->string('size')->comment('文件大小');
             $table->string('hash')->comment('文件哈希');
             $table->string('ext')->comment('文件后缀');
-            $table->string('driver')->comment('文件驱动');
             $table->timestamp('expired_at')->nullable()->comment('过期时间');
             $table->timestamps();
         });
