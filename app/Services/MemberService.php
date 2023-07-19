@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\Member;
-use App\Utils\HashId;
-
 class MemberService
 {
     public static function getByNo(string $no): array
@@ -54,7 +52,7 @@ class MemberService
         $member->address = $data['address'];
         $member->pub_key = $data['pub_key'];
         $member->save();
-        $member->no = HashId::encode('member', $member->id);
+        $member->no = self::generateNo();
         $member->save();
         return $member->toArray();
     }
@@ -73,8 +71,21 @@ class MemberService
         $members = Member::query()->whereIn('id', $ids)->get();
         return $members->toArray();
     }
-    // 传入 id
-    // 将 id 转为 十六进制字符
-    // 字符串转为二进制
-    // 在将二进制
+
+    public static function generateNo(): string
+    {
+        $length = rand(2, 5);
+        // 前缀
+        $prefix = rand(10, 99);
+        // 混淆码
+        $confusion = rand(1, 9);
+        // 根据 length 长度 生成随机数
+        $random = rand(pow(10, $length - 1), pow(10, $length) - 1);
+        $no = $prefix . $confusion . $random;
+        $member = Member::query()->where('no', $no)->exists();
+        if ($member) {
+            return self::generateNo();
+        }
+        return $no;
+    }
 }

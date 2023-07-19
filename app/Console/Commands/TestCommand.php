@@ -29,6 +29,7 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        dd(MemberService::generateNo(99999999999,'1'));
+
+        dd($prefix . $confusion . $random, $length);
     }
 }
