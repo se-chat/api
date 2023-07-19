@@ -30,6 +30,5 @@ class TestCommand extends Command
     public function handle()
     {
 
-        dd($prefix . $confusion . $random, $length);
     }
 }

@@ -24,7 +24,7 @@ class GroupController extends Controller
     public function create(GroupCreateRequest $request): JsonResponse
     {
         $member = $this->member();
-        $params = $request->all(['name', 'message_expired_time', 'address', 'pub_key']);
+        $params = $request->all(['name', 'message_expired_time']);
         $params['owner_id'] = $member['id'];
         $params['nickname'] = $member['nickname'];
         DB::beginTransaction();

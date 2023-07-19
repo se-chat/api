@@ -25,8 +25,6 @@ class GroupCreateRequest extends FormRequest
         return [
             'name' => 'required|string|max:20',
             'message_expired_time' => 'required|integer|min:3',
-            'address' => 'required|string',
-            'pub_key' => 'required|string',
         ];
     }
 
@@ -39,10 +37,6 @@ class GroupCreateRequest extends FormRequest
             'message_expired_time.required' => '消息过期时间不能为空',
             'message_expired_time.integer' => '消息过期时间必须是整数',
             'message_expired_time.min' => '消息过期时间最小值为3',
-            'address.required' => '群聊地址不能为空',
-            'address.string' => '群聊地址必须是字符串',
-            'pub_key.required' => '群聊公钥不能为空',
-            'pub_key.string' => '群聊公钥必须是字符串',
         ];
     }
 }

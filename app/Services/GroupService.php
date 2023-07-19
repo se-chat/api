@@ -21,9 +21,7 @@ class GroupService
         $group->name = $data['name'];
         $group->avatar = $data['avatar'] ?? '';
         $group->message_expired_time = $data['message_expired_time'] ?? 30;
-        $group->address = $data['address'];
         $group->owner_id = $data['owner_id'];
-        $group->pub_key = $data['pub_key'];
         $group->save();
         GroupMemberService::create($group->id, $data['owner_id'], 'owner', $data['nickname']);
         return $group->toArray();

@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->unsignedInteger('owner_id')->comment('群主ID')->index('owner_id');
             $table->string('avatar')->nullable();
             $table->unsignedInteger('message_expired_time')->default(3)->comment('消息过期时间 单位小时');
-            $table->string('address')->comment('群聊地址')->index('address');
-            $table->string('pub_key')->comment('群聊公钥');
             $table->timestamps();
         });
     }
