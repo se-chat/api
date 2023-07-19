@@ -132,9 +132,9 @@ class ContactController extends Controller
     public function addGroup(Request $request): JsonResponse
     {
         $authMember = $this->member();
-        $params = $request->all(['member_id', 'group_id', 'content']);
-        $memberId = HashId::decode('member', $params['member_id']);
-        $member = MemberService::getById($memberId);
+        $params = $request->all(['member_no', 'group_id', 'content']);
+
+        $member = MemberService::getByNo($params['member_no']);
         if (!$member) {
             throw new Exception('用户不存在');
         }
