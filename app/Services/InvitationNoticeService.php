@@ -69,8 +69,6 @@ class InvitationNoticeService
         $invitationNotice->member_id = $data['member_id'];
         $invitationNotice->business_id = $data['business_id'];
         $invitationNotice->business_type = $data['business_type'];
-        $invitationNotice->pub_key = $data['pub_key'];
-        $invitationNotice->content = $data['content'] ?? '';
         $invitationNotice->expired_at = $data['expired_at'];
         $invitationNotice->save();
         return $invitationNotice->toArray();

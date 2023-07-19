@@ -114,7 +114,6 @@ class ContactController extends Controller
             'member_id' => $member['id'],
             'business_type' => Member::class,
             'business_id' => $authMember['id'],
-            'pub_key' => $authMember['pub_key'],
             'expired_at' => now()->addHours(6)
         ];
         if (InvitationNoticeService::has($data['member_id'], $data['business_id'], $data['business_type'])) {
@@ -153,7 +152,6 @@ class ContactController extends Controller
             'business_type' => Group::class,
             'business_id' => $groupId,
             'content' => $params['content'],
-            'pub_key' => $authMember['pub_key'],
             'expired_at' => now()->addHours(6)
         ];
         if (InvitationNoticeService::has($data['member_id'], $data['business_id'], $data['business_type'])) {
