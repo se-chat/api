@@ -8,28 +8,36 @@ use App\Models\Message;
 
 class MessageService
 {
-    public static function getListByReceiverTypeMember(int $memberId, int $receiverId, int $lastId = 0): array
+    public static function getListByReceiverTypeMember(int $memberId, int $receiverId, int $limit, int $lastId, string $type): array
     {
-        return Message::query()
-            ->where('id', '>', $lastId)
+        $query = Message::query()
             ->where('receiver_type', Member::class)
             ->whereIn('sender_id', [$memberId, $receiverId])
-            ->whereIn('receiver_id', [$memberId, $receiverId])
-            ->orderBy('id')
-            ->offset(0)
-            ->limit(5)
+            ->whereIn('receiver_id', [$memberId, $receiverId]);
+        if ($type == 'after') {
+            $query = $query->where('id', '>', $lastId)->latest('id');
+        } else {
+            $query = $query->where('id', '<', $lastId)->orderBy('id');
+        }
+        return $query->offset(0)
+            ->limit($limit)
             ->get()
             ->toArray();
     }
 
-    public static function getListByReceiverTypeGroup(int $groupId, int $lastId = 0): array
+    public static function getListByReceiverTypeGroup(int $groupId, int $limit, int $lastId, string $type): array
     {
-        return Message::query()
+        $query = Message::query()
             ->where('receiver_type', Group::class)
-            ->where('receiver_id', $groupId)
-            ->where('id', '>', $lastId)
-            ->orderBy('id')
-            ->limit(5)
+            ->where('receiver_id', $groupId);
+        if ($type == 'after') {
+            $query = $query->where('id', '>', $lastId)->latest('id');
+
+        } else {
+            $query = $query->where('id', '<', $lastId)->orderBy('id');
+        }
+        return $query->offset(0)
+            ->limit($limit)
             ->get()
             ->toArray();
     }

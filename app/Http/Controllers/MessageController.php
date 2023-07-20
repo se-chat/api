@@ -36,7 +36,7 @@ class MessageController extends Controller
     public function getList(MessageGetListRequest $request): JsonResponse
     {
         $member = $this->member();
-        $params = $request->all(['contact_id', 'last_id']);
+        $params = $request->all(['contact_id', 'last_id', 'type']);
         $contactId = HashId::decode('contact', $params['contact_id']);
         $contact = ContactService::getById($contactId);
         if (!$contact) {
@@ -51,9 +51,9 @@ class MessageController extends Controller
         }
         $messages = [];
         if ($contact['business_type'] == Member::class) {
-            $messages = MessageService::getListByReceiverTypeMember($member['id'], $contact['business_id'], $lastId);
+            $messages = MessageService::getListByReceiverTypeMember($member['id'], $contact['business_id'], 5, $lastId, $params['type']);
         } else if ($contact['business_type'] == Group::class) {
-            $messages = MessageService::getListByReceiverTypeGroup($contact['business_id'], $lastId);
+            $messages = MessageService::getListByReceiverTypeGroup($contact['business_id'], 5, $lastId, $params['type']);
         }
         $members = MemberService::getByIds(array_column($messages, 'sender_id'));
         foreach ($members as &$member) {
