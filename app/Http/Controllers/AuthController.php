@@ -32,6 +32,7 @@ class AuthController extends Controller
     {
         $member = $this->member();
         unset($member['created_at'], $member['updated_at'], $member['id']);
+        $member['nickname'] = mb_substr($member['nickname'], 0, 4, 'utf-8');
         return $this->success([
             'auth_info' => $member
         ]);
