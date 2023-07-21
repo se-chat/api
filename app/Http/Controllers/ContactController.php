@@ -74,12 +74,21 @@ class ContactController extends Controller
                     $contact['business_type'] = 'friend';
                     $friend = MemberService::getById($contact['business_id']);
                     $contact['name'] = $friend['nickname'];
+                    $friend['id'] = $contact['business_id'] = HashId::encode('member', $contact['business_id']);
+                    $contact['business_type'] = 'friend';
+                    unset($friend['created_at'], $friend['updated_at']);
+                    $contact['business'] = $friend;
                     break;
                 case Group::class:
                     $contact['business_type'] = 'group';
                     $group = GroupService::getById($contact['business_id']);
                     $contact['name'] = $group['name'];
-                    $contact['business_id'] = HashId::encode('group', $contact['business_id']);
+                    $group['is_admin'] = GroupMemberService::isAdmin($contact['business_id'], $member['id']);
+                    $contact['business_type'] = 'group';
+                    $group['is_owner'] = $group['owner_id'] === $member['id'];
+                    unset($group['created_at'], $group['updated_at'], $group['owner_id']);
+                    $contact['business'] = $group;
+                    $group['id'] = $contact['business_id'] = HashId::encode('group', $contact['business_id']);
                     break;
                 default:
                     break;
